@@ -1,0 +1,77 @@
+{% extends "capstone/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    {% if query %}
+        <h2>Search Results for "{{ query }}"</h2>
+    {% else %}
+        {% if showpage == 'favorites' %}
+            <h2>Your Favorites</h2>
+        {% elif showpage == 'recommendations' %}
+            <h2>Top Shows by Rating</h2>
+        {% else %}
+            <h2>All Shows</h2>
+        {% endif %}
+    {% endif %}
+
+    {% if showpage == 'search_results' or not showpage %}
+    <div class="sidebar col-lg-2 col-md-3">
+        <form action="{% url 'search' %}" method="GET">
+        <input
+            class="search"
+            type="text"
+            name="q"
+            placeholder="Search for Shows"
+        />
+        </form>
+    <div>
+    {% endif %}
+
+    <div class="show-list">
+        {% for show in page_obj %}
+            <div class="show" data-show-id="{{ show.id }}">
+                <div class="show-content">
+                    <div class="show-image">
+                        <img src="{{ show.image_url }}" alt="{{ show.title }}">
+                    </div>
+                    <div class="show-details">
+                        <div class="show-title">
+                            <h3><a href="{% url 'show_view' show.id %}">{{ show.title }}</a></h3>
+                        </div>
+                        <div class="show-info">
+                            <p>Genre: {{ show.genre }}</p>
+                            <p>Synopsis: {{ show.description }}</p>
+                            <p>Rating: {{ show.average_rating }}/5 ({{ show.total_ratings }} users)</p>
+                            <p>Favorites: {{ show.favorites.count }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        {% empty %}
+            <p>No shows yet.</p>
+        {% endfor %}
+    </div>
+    
+    <!-- Bootstrap Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'capstone/index.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="add-show-view">
+        <h3>New Show</h3>
+        <form id="add-show-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                Created by: <input disabled class="form-control" value="{{ request.user.username }}" id="add-show-user" name="add-show-user">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="add-show-title" name="add-show-title" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="add-show-genre" name="add-show-genre" placeholder="Genre">
+            </div>
+            <textarea class="form-control" id="add-show-description" name="add-show-description" placeholder="Description"></textarea>
+            <div class="form-group">
+                <input class="form-control" id="add-show-image" name="add-show-image" placeholder="Image">
+            </div>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+    </div>
+    
+    <script src="{% static 'capstone/show_page.js' %}"></script>
+{% endblock %}

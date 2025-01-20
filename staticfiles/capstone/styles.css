@@ -1,0 +1,111 @@
+/* styles.css */
+
+/* Enhance star ratings */
+.star-container {
+    font-size: 24px;
+    display: flex;
+}
+
+.star {
+    cursor: pointer;
+    color: #ffc107; /* Yellow color for stars */
+    transition: color 0.2s; /* Smooth transition on hover */
+}
+
+.star:hover,
+.star.active {
+    color: #f39c12; /* Change color on hover or when active */
+}
+
+.show {
+    border: 1px solid #ddd;
+    border-radius: 10px; /* Increase the border radius for smoother edges */
+    padding: 20px; /* Increase padding for more space inside the card */
+    margin-bottom: 30px; /* Wider space between cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.show-list {
+    margin-top: 30px;
+}
+
+
+.show-title {
+    margin-bottom: 10px;
+}
+
+.show-image img {
+    width: 100%; /* Reset width */
+    height: auto; /* Reset height */
+    max-width: min(100%, 500px);  /* Ensure image doesn't exceed container width */
+    max-height: 100%; /* Ensure image doesn't exceed container height */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.show-description p {
+    margin-bottom: 10px;
+}
+
+.show-favorites button {
+    margin-top: 20px; /* Add margin at the top of the button */
+    margin-bottom: 20px; /* Add margin at the bottom of the button */
+}
+
+#rating-form {
+    margin-top: 20px; /* Add margin at the top of the rating form */
+}
+
+.show-rating p,
+.show-favorites p {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Adjust form inputs in new_show.html */
+#add-show-view {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#add-show-view .form-group {
+    margin-bottom: 10px;
+}
+
+/* Pagination styles */
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    margin: 0 5px;
+    list-style: none;
+    display: inline-block;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #333;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebar {
+    margin: 30px;
+    max-width: 400px;
+}
+
+#id_text {
+    width: 100%; /* Set the width as needed */
+    height: 150px; /* Set the height as needed */
+    resize: vertical; /* Allow vertical resizing */
+    /* Additional styling as per your requirements */
+}

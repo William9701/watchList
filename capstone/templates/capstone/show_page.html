@@ -1,0 +1,81 @@
+{% extends "capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>{{ show.title }}</h2>
+
+    <div class="show" data-show-id="{{ show.id }}">
+        <div class="show-creator">
+            <p>Show page added by: <a href="{% url 'profile' show.creator.username %}"><strong>{{ show.creator.username }}</strong></a></p>
+        </div>
+        <div class="show-image">
+            <img src="{{ show.image_url }}" alt="{{ show.title }}" width="10" height="5">
+        </div>
+        <div class="show-genre">
+            <p>Genre: {{ show.genre }}</p>
+        </div>
+        <div class="show-description">
+            <p>Synopsis: <span class="synopsis-text">{{ show.description }}</span></p>
+        </div>
+        {% if user.is_authenticated and show.creator == request.user %}
+            <button class="edit-show-btn">Edit</button>
+        {% endif %}
+        <div class="edit-container" style="display: none;">
+            {% csrf_token %}
+            <textarea class="edit-textarea"></textarea>
+            <button class="save-edit-btn">Save</button>
+        </div>
+        <div class="show-rating">
+            <p>Rating: {{ show.average_rating }}/5 ({{ total_ratings }} users)</p>
+        </div>
+        <div class="show-favorites">
+            <p>Favorites: {{ show.favorites.count }}</p>
+        </div>
+
+        {% if user.is_authenticated %}
+
+            <form method="post" action="{% url 'show_view' show.id %}">
+                {% csrf_token %}
+                <button type="submit" name="favorites_submit">
+                    {% if is_in_favorites %}Remove from Favorites{% else %}Add to Favorites{% endif %}
+                </button>
+            </form>
+
+            <form id="rating-form" action="{% url 'rate_show' show.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="stars" name="stars" value="">
+                <h4>Rate this show:</h4>
+                <div class="star-rating">
+                    <span class="star" data-rating="1">&#9733;</span>
+                    <span class="star" data-rating="2">&#9733;</span>
+                    <span class="star" data-rating="3">&#9733;</span>
+                    <span class="star" data-rating="4">&#9733;</span>
+                    <span class="star" data-rating="5">&#9733;</span>
+                </div>
+            </form>
+
+            <form id="review_form" method="post" action="{% url 'show_view' show.id %}">
+                {% csrf_token %}
+                {{ review_form.as_p }}
+                <button type="submit" name="review_form_submit">Add Review</button>
+            </form>
+        {% endif %}
+
+        <h3>Reviews</h3>
+        <ul>
+            {% for review in reviews %}
+                <li><a href="{% url 'profile' review.user.username %}"><strong>{{ review.user.username }}</strong></a>: {{ review.text }}</li>
+            {% empty %}
+                <p>No reviews yet.</p>
+            {% endfor %}
+        </ul>
+        
+        
+    </div>
+
+    <script>
+        const csrf_token = "{{ csrf_token }}";
+    </script>
+    <script src="{% static 'capstone/show_page.js' %}"></script>
+
+{% endblock %}

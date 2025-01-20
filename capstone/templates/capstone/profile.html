@@ -1,0 +1,17 @@
+{% extends "capstone/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <h1 id="user-header">{{ user_profile.username }}'s profile page</h1>
+    <h3 id="user-header">Shows added:</h1>
+
+    <ul>
+    {% for show in user_shows %}
+    <li><a href="{% url 'show_view' show.id %}">{{ show.title }}</a></li>
+    {% empty %}
+    <p>{{ user_profile.username }} has not added any shows.</p>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
