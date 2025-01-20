@@ -62,7 +62,7 @@ python files
 
 1. **Clone the Project Repository:**
     ```bash
-    git clone https://github.com/me50/janald99.git
+    git clone https://github.com/William9701/watchList
     cd <your_project_folder>
     ```
     At the main project directory level, you should be able to see files like manage.py, and folders like capstone and project5.
