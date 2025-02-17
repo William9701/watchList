@@ -98,4 +98,4 @@ python files
     
 7. **Access the Admin Interface:**
     - Go to `http://127.0.0.1:8000/admin/` and log in using the superuser credentials created earlier.
-    - Use the Django admin interface to manage users, shows, and other data.
+    - Use the Django admin interface to manage users, shows, and other data!
